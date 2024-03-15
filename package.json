@@ -25,9 +25,9 @@
   ],
   "author": "Janis commerce",
   "directories": {
-		"lib": "lib",
-		"test": "tests"
-	},
+    "lib": "lib",
+    "test": "tests"
+  },
   "license": "ISC",
   "dependencies": {
     "react-native-device-info": "^10.12.0",
