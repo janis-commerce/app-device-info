@@ -31,6 +31,10 @@ describe('NetInfo utils', () => {
 				networkCarrier: 'movistar',
 				networkStrength: '5g',
 				isInternetReachable: true,
+				details: {
+					cellularGeneration: '5g',
+					carrier: 'movistar',
+				},
 			});
 		});
 
@@ -51,6 +55,10 @@ describe('NetInfo utils', () => {
 				networkCarrier: '101:06:1702',
 				networkStrength: 99,
 				isInternetReachable: true,
+				details: {
+					ipAddress: '101:06:1702',
+					strength: 99,
+				},
 			});
 		});
 
@@ -69,6 +77,7 @@ describe('NetInfo utils', () => {
 				networkStrength: 0,
 				isInternetReachable: false,
 				reason: 'Connection is not available',
+				details: {},
 			});
 		});
 	});
