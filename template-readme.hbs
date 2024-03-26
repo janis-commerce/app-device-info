@@ -16,7 +16,7 @@ To work, this package depends on you installing the following libraries
     npm install @react-native-community/netinfo
 ```
 
-##Install the dependency:
+## Install the dependency:
 
 ```sh
     npm install @janiscommerce/app-device-info
