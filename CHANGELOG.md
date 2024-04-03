@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-04-03
+
 ### Changed
 
 - flag private to public in npm publish action
