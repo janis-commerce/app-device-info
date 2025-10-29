@@ -29,12 +29,13 @@
 		"test": "tests"
 	},
 	"license": "ISC",
-	"dependencies": {},
-	"peerDependencies": {
-		"react": ">=17.0.2 <19.0.0",
-		"react-native": ">=0.67.5 <0.75.0",
+	"dependencies": {
 		"@react-native-community/netinfo": ">=9.3.10",
 		"react-native-device-info": ">=8.5.0"
+	},
+	"peerDependencies": {
+		"react": ">=17.0.2 <19.0.0",
+		"react-native": ">=0.67.5 <0.75.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.23.7",
