@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-10-31
+
+### Added
+
+- getAppInfo method [APPSRN-441](https://janiscommerce.atlassian.net/browse/APPSRN-441)
+
 ## [1.1.0] - 2024-04-03
 
 ### Changed
