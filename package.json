@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "Package of methods to obtain information about the mobile device",
   "main": "lib/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
@@ -15,7 +16,8 @@
     "url": "git+https://github.com/janis-commerce/app-device-info.git"
   },
   "files": [
-    "lib"
+    "lib",
+    "index.d.ts"
   ],
   "keywords": [
     "janis",

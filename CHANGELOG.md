@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- TypeScript type declarations (`index.d.ts`).
+- Added `"types"` entry in `package.json`.
+
 ## [1.1.0] - 2024-04-03
 
 ### Changed

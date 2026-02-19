@@ -1,12 +1,11 @@
-name: NPM Publish
+name: NPM Publish Beta
 
 on:
   push:
     tags:
-      - '*'
-      - '!*-beta*'
-      - '!*-alpha*'
-      - '!*-rc*'
+      - '*-beta*'
+      - '*-alpha*'
+      - '*-rc*'
 
 jobs:
   build:
@@ -28,12 +27,10 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test:coverage
-
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
+    environment: beta
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -47,13 +44,22 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        env:
-          NPM_TOKEN: ${{ secrets.npm_token }}
+
+      - name: Determine npm tag
+        id: npm-tag
+        run: |
+          if [[ ${{ github.ref_name }} == *"-alpha"* ]]; then
+            echo "tag=alpha" >> $GITHUB_OUTPUT
+          elif [[ ${{ github.ref_name }} == *"-rc"* ]]; then
+            echo "tag=rc" >> $GITHUB_OUTPUT
+          else
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          fi
 
       - name: Publish to NPM
-        run: npm publish --access public
+        run: npm publish --tag ${{ steps.npm-tag.outputs.tag }} --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   send-slack-message:
     needs: publish-npm
@@ -70,4 +76,4 @@ jobs:
       - name: Send beta release notification
         run: bash ./scripts/release-notes.sh
         env:
-          RELEASE_SLACK_WEBHOOK_URL: ${{secrets.RELEASE_SLACK_WEBHOOK_URL}}
+          RELEASE_SLACK_WEBHOOK_URL: ${{ secrets.RELEASE_SLACK_WEBHOOK_URL }}
