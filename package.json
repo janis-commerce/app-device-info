@@ -32,7 +32,7 @@
 	"dependencies": {},
 	"peerDependencies": {
 		"react": ">=17.0.2 <20.0.0",
-		"react-native": ">=0.73.0 <0.82.0",
+		"react-native": ">=0.71.5 <0.82.0",
 		"@react-native-community/netinfo": ">=9.0.0",
 		"react-native-device-info": ">=8.5.0"
 	},
