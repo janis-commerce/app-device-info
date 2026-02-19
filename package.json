@@ -1,6 +1,6 @@
 {
   "name": "@janiscommerce/app-device-info",
-  "version": "1.1.1-beta.1",
+  "version": "1.1.1-beta.2",
   "description": "Package of methods to obtain information about the mobile device",
   "main": "lib/index.js",
   "types": "index.d.ts",
