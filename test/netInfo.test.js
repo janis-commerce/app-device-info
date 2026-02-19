@@ -20,7 +20,7 @@ describe('NetInfo utils', () => {
 				details: {
 					cellularGeneration: '5g',
 					carrier: 'movistar',
-					isConnectionExpensive: true
+					isConnectionExpensive: true,
 				},
 				isInternetReachable: true,
 			});
@@ -33,7 +33,7 @@ describe('NetInfo utils', () => {
 				networkStrength: '5g',
 				isInternetReachable: true,
 				details: {
-					isConnectionExpensive: true
+					isConnectionExpensive: true,
 				},
 			});
 		});
@@ -44,8 +44,8 @@ describe('NetInfo utils', () => {
 				details: {
 					ipAddress: '101:06:1702',
 					strength: 99,
-					ssid:'ssid',
-					bssid:'bssid'
+					ssid: 'ssid',
+					bssid: 'bssid',
 				},
 				isInternetReachable: true,
 			});
@@ -58,8 +58,8 @@ describe('NetInfo utils', () => {
 				networkStrength: 99,
 				isInternetReachable: true,
 				details: {
-					ssid:'ssid',
-					bssid:'bssid'
+					ssid: 'ssid',
+					bssid: 'bssid',
 				},
 			});
 		});

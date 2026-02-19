@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [1.1.1-beta.2] - 2026-02-19
+
+### Fixed
+
+- linting errors
+
+## [1.1.1-beta.1] - 2026-02-19
+
 ### Added
 
 - TypeScript type declarations (`index.d.ts`).
