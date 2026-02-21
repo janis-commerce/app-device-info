@@ -3,19 +3,29 @@
 	"version": "1.3.0-beta.0",
 	"description": "Package of methods to obtain information about the mobile device",
 	"main": "lib/index.js",
+	"exports": {
+		".": {
+			"react-native": "./lib/index.js",
+			"require": "./dist/index.js",
+			"default": "./lib/index.js"
+		}
+	},
 	"scripts": {
 		"test": "jest",
 		"lint": "eslint .",
+		"build": "babel lib --out-dir dist --extensions '.js' --config-file ./babel.build.json",
 		"build-docs": "jsdoc2md --template template-readme.hbs --files lib/*.js > README.md",
 		"test:coverage": "jest --collectCoverage",
-		"validate:code": "npm run lint -- --fix  && jest --collectCoverage"
+		"validate:code": "npm run lint -- --fix  && jest --collectCoverage",
+		"prepublishOnly": "npm run build"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/janis-commerce/app-device-info.git"
 	},
 	"files": [
-		"lib"
+		"lib",
+		"dist"
 	],
 	"keywords": [
 		"janis",
@@ -29,17 +39,18 @@
 		"test": "tests"
 	},
 	"license": "ISC",
-	"dependencies": {},
 	"peerDependencies": {
+		"@react-native-community/netinfo": ">=9.0.0",
 		"react": ">=17.0.2 <20.0.0",
 		"react-native": ">=0.71.5 <0.82.0",
-		"@react-native-community/netinfo": ">=9.0.0",
 		"react-native-device-info": ">=8.5.0"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.28.6",
 		"@babel/core": "^7.23.7",
 		"@babel/eslint-parser": "^7.23.3",
 		"@babel/eslint-plugin": "^7.23.5",
+		"@babel/preset-env": "^7.29.0",
 		"@babel/runtime": "^7.23.7",
 		"@react-native-community/netinfo": "^9.3.10",
 		"eslint": "^8.56.0",
