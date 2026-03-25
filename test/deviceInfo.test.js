@@ -108,10 +108,14 @@ describe('DeviceInfo utils:', () => {
 
 	describe('getAppInfo', () => {
 		it.each([
-			['im.janis.picking.beta', 'beta'],
-			['im.janis.picking.qa', 'qa'],
-			['im.janis.picking', 'prod'],
-		])('returns an object with the app name and environment', (bundleId, environment) => {
+			['in.janis.picking.beta', 'janisdev'],
+			['in.janis.picking.qa', 'janisqa'],
+			['in.janis.picking', 'janis'],
+			['IN.JANIS.PICKING.BETA', 'janisdev'],
+			['in.janis.picking.extra.beta', 'janisdev'],
+			['in.janis.picking.staging', 'janis'],
+			['in.janis.picking.betabeta', 'janis'],
+		])('returns app name and janisEnv from bundle id', (bundleId, janisEnv) => {
 			getApplicationNameSpy.mockReturnValueOnce('Janis Orders App');
 			getBundleIdSpy.mockReturnValueOnce(bundleId);
 
@@ -119,7 +123,7 @@ describe('DeviceInfo utils:', () => {
 
 			expect(appInfo).toStrictEqual({
 				appName: 'Janis Orders App',
-				environment,
+				janisEnv,
 			});
 		});
 
@@ -131,7 +135,25 @@ describe('DeviceInfo utils:', () => {
 
 			expect(appInfo).toStrictEqual({
 				appName: '',
-				environment: '',
+				janisEnv: '',
+			});
+		});
+
+		it.each([
+			['third-party bundle', 'com.example.otherapp', 'Other App'],
+			['empty bundle id', '', 'App'],
+			['bundle does not start with in.janis.', 'im.janis.picking.beta', 'App'],
+			['empty dot segment (in.janis.)', 'in.janis.', 'App'],
+			['double dots in bundle', 'in.janis..picking', 'App'],
+			['getBundleId returns non-string', 123, 'App'],
+			['getBundleId returns null', null, 'App'],
+		])('returns empty janisEnv — %s', (_caseLabel, bundleId, appName) => {
+			getApplicationNameSpy.mockReturnValueOnce(appName);
+			getBundleIdSpy.mockReturnValueOnce(bundleId);
+
+			expect(getAppInfo()).toStrictEqual({
+				appName,
+				janisEnv: '',
 			});
 		});
 	});
