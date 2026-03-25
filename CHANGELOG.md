@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-03-25
+
+### Added
+
+- getEnvironment function
+
 ## [1.3.0] - 2026-02-21
 
 ### Added
