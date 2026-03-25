@@ -115,6 +115,9 @@ describe('DeviceInfo utils:', () => {
 			['in.janis.picking.extra.beta', 'janisdev'],
 			['in.janis.picking.staging', 'janis'],
 			['in.janis.picking.betabeta', 'janis'],
+			['  in.janis.picking.beta  ', 'janisdev'],
+			[' \tin.janis.picking.qa\n ', 'janisqa'],
+			['  in.janis.picking  ', 'janis'],
 		])('returns app name and janisEnv from bundle id', (bundleId, janisEnv) => {
 			getApplicationNameSpy.mockReturnValueOnce('Janis Orders App');
 			getBundleIdSpy.mockReturnValueOnce(bundleId);
@@ -142,7 +145,9 @@ describe('DeviceInfo utils:', () => {
 		it.each([
 			['third-party bundle', 'com.example.otherapp', 'Other App'],
 			['empty bundle id', '', 'App'],
+			['whitespace-only bundle id (trimmed to empty)', '   \t  ', 'App'],
 			['bundle does not start with in.janis.', 'im.janis.picking.beta', 'App'],
+			['trimmed bundle still not Janis (im.janis)', '  im.janis.picking.beta  ', 'App'],
 			['empty dot segment (in.janis.)', 'in.janis.', 'App'],
 			['double dots in bundle', 'in.janis..picking', 'App'],
 			['getBundleId returns non-string', 123, 'App'],
