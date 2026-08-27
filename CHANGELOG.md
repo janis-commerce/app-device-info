@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-08-27
+
+### Added
+
+- Consumers can now get the connectivity check URL for the running environment with `getReachabilityUrl()`, and the device identification headers already mapped with `getJanisHeaders()`, instead of declaring the domain and rewriting the header mapping on their side [APPSRN-539](https://janiscommerce.atlassian.net/browse/APPSRN-539)
+
+### Changed
+
+- **Internal** The README is no longer regenerated and auto-committed on every tag, so what is written in it survives a release [APPSRN-539](https://janiscommerce.atlassian.net/browse/APPSRN-539)
+- Importing the package no longer overrides the connectivity check configuration: an app that sets its own timeouts and reachability test keeps them instead of silently losing them depending on module load order [APPSRN-539](https://janiscommerce.atlassian.net/browse/APPSRN-539)
+- An app that never calls `NetInfo.configure()` now checks connectivity against the NetInfo default host instead of the Janis one the package used to force on import. Nothing breaks — `getNetworkState()` and `getInternetReachability()` keep working — but to check against a Janis domain the app has to configure it, and the README shows how: the URL alone is not enough, `reachabilityTest` and `useNativeReachability` have to go with it [APPSRN-539](https://janiscommerce.atlassian.net/browse/APPSRN-539)
+
 ## [1.4.0] - 2026-03-25
 
 ### Added
