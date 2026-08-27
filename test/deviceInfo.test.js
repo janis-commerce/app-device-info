@@ -1,9 +1,11 @@
 import {
 	getAppInfo,
 	getDeviceInfoForHeaders,
+	getJanisHeaders,
 	getDeviceModel,
 	getDeviceScreenMeasurements,
 	getOSVersion,
+	getReachabilityUrl,
 } from '../lib/deviceInfo.js';
 import DeviceInfoPkg from 'react-native-device-info';
 import {PixelRatio, Dimensions} from 'react-native';
@@ -160,6 +162,70 @@ describe('DeviceInfo utils:', () => {
 				appName,
 				janisEnv: '',
 			});
+		});
+	});
+
+	describe('getJanisHeaders', () => {
+		it('returns the device data mapped to the janis-app-* headers', () => {
+			getApplicationNameSpy.mockReturnValueOnce('Janis Orders App');
+			getBuildNumberSpy.mockReturnValueOnce('434');
+			getVersionSpy.mockReturnValueOnce('1.5.0');
+			getBundleIdSpy.mockReturnValueOnce('in.janis.picking');
+			getSystemNameSpy.mockReturnValueOnce('android');
+			getSystemVersionSpy.mockReturnValueOnce('13');
+			getUniqueIdSpy.mockReturnValueOnce('34hf83hf89ahfjo');
+			getModelSpy.mockReturnValueOnce('Pixel 2');
+
+			expect(getJanisHeaders()).toStrictEqual({
+				'janis-app-name': 'Janis Orders App',
+				'janis-app-build': '434',
+				'janis-app-version': '1.5.0',
+				'janis-app-package-name': 'in.janis.picking',
+				'janis-app-device-os-name': 'android',
+				'janis-app-device-os-version': '13',
+				'janis-app-device-id': '34hf83hf89ahfjo',
+				'janis-app-device-name': 'Pixel 2',
+			});
+		});
+
+		it('returns the headers with empty values when the device data could not be obtained', () => {
+			getApplicationNameSpy.mockReturnValueOnce(null);
+			getBuildNumberSpy.mockReturnValueOnce(null);
+			getVersionSpy.mockReturnValueOnce(null);
+			getBundleIdSpy.mockReturnValueOnce(null);
+			getSystemNameSpy.mockReturnValueOnce(null);
+			getSystemVersionSpy.mockReturnValueOnce(null);
+			getUniqueIdSpy.mockReturnValueOnce(null);
+			getModelSpy.mockReturnValueOnce(null);
+
+			expect(getJanisHeaders()).toStrictEqual({
+				'janis-app-name': '',
+				'janis-app-build': '',
+				'janis-app-version': '',
+				'janis-app-package-name': '',
+				'janis-app-device-os-name': '',
+				'janis-app-device-os-version': '',
+				'janis-app-device-id': '',
+				'janis-app-device-name': '',
+			});
+		});
+	});
+
+	describe('getReachabilityUrl', () => {
+		it.each([
+			['in.janis.picking', 'https://app.janis.in'],
+			['in.janis.picking.qa', 'https://app.janisqa.in'],
+			['in.janis.picking.beta', 'https://app.janisdev.in'],
+		])('returns the connectivity check url for the environment', (bundleId, reachabilityUrl) => {
+			getBundleIdSpy.mockReturnValueOnce(bundleId);
+
+			expect(getReachabilityUrl()).toStrictEqual(reachabilityUrl);
+		});
+
+		it('falls back to the production url when the environment cannot be resolved', () => {
+			getBundleIdSpy.mockReturnValueOnce('com.example.otherapp');
+
+			expect(getReachabilityUrl()).toStrictEqual('https://app.janis.in');
 		});
 	});
 });
